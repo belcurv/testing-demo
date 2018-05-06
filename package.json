@@ -1,0 +1,16 @@
+{
+  "name": "imatest",
+  "version": "1.0.0",
+  "description": "Ima testing yo",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "author": "belcurv",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "jest": "^22.4.3"
+  }
+}
