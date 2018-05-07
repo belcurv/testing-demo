@@ -19,44 +19,53 @@ describe('async_thing', () => {
       expect(typeof getOne === 'function').toBeTruthy();
     });
 
-    it('should return `result: true` when given a valid user', async () => {
-      const user = 'leroy';
-      const result = await getOne(user);
-      expect(result).toHaveProperty('result', true);
+    it('should resolve `result: true` when username is found', async () => {
+      const user   = 'leroy';                         // setup
+      const result = await getOne(user);              // act
+      expect(result).toHaveProperty('result', true);  // assert
     });
 
-    it('should return a user when given and valid user', async () => {
-      const user = 'leroy';
-      const result = await getOne(user);
-      expect(result).toHaveProperty('user');
+    // Same result as above.
+    // Note: Jest's .resolves method means no need for async/await.
+    it('should resolve `result: true` when username is found', () => {
+      expect(getOne('leroy'))
+        .resolves
+        .toHaveProperty('result', true);
+    });
+
+    it('should resolve a user when username is found', () => {
+      expect(getOne('leroy'))
+        .resolves
+        .toHaveProperty('user', expect.objectContaining({
+          name : expect.any(String),
+          _id  : expect.any(String)
+        }));
     });
 
     
     /* ========================== NEGATIVE TESTS =========================== */
 
-    it('should return `result: false` when given invalid user', async () => {
-      const user = 'jenkins';
-      const result = await getOne(user);
-      expect(result).toHaveProperty('result', false);
+    it('should resolve `result: false` when username not found', () => {
+      expect(getOne('jenkins'))
+        .resolves
+        .toHaveProperty('result', false);
     });
 
-    it('should return `user: null` when given invalid user', async () => {
-      const user = 'jenkins';
-      const result = await getOne(user);
-      expect(result).toHaveProperty('user', null);
+    it('should resolve `user: null` when username not found', () => {
+      expect(getOne('jenkins'))
+        .resolves
+        .toHaveProperty('user', null);
     });
 
 
     /* ========================= EXCEPTION TESTS =========================== */
 
-    it('should throw an error when username param is omitted', async () => {
-      const user = undefined;
-      expect(getOne(user))
+    it('should reject with error when no username is passed', () => {
+      expect(getOne())
         .rejects
-        .toMatch('Missing required param "username"');
+        .toHaveProperty('error', 'Missing required param "username"');
     });
  
   });
-
 
 });

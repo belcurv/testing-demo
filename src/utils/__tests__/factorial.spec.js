@@ -1,7 +1,7 @@
 /* ================================= SETUP ================================= */
 
 // import function to test
-const { factorial1 } = require('../factorial');
+const { factorial } = require('../factorial');
 
 
 /* ================================= TESTS ================================= */
@@ -16,41 +16,47 @@ describe('the canary', () => {
 });
 
 
-describe('factorial1', () => {
+describe('factorial', () => {
 
   /* =========================== POSITIVE TESTS ============================ */
 
-  it('factorial1 should be a function', () => {
-    expect(typeof factorial1 === 'function').toBeTruthy();
+  it('should be a function', () => {
+    expect(typeof factorial === 'function').toBeTruthy();
   });
 
-  it('should calculate the factorial', () => {
+  it('should calculate the factorial of 5', () => {
     const n = 5;                                // setup
-    const result = factorial1(n);               // act
+    const result = factorial(n);                // act
     expect(result).toEqual(5 * 4 * 3 * 2 * 1);  // assert
   });
 
-  it('should calculate the factorial', () => {
-    const n = 4;
-    const result = factorial1(n);
-    expect(result).toEqual(4 * 3 * 2 * 1);
+  // can combine setup, act, assert
+  it('should calculate the factorial of 4', () => {
+    expect(factorial(4)).toEqual(4 * 3 * 2 * 1);
   });
 
 
   /* =========================== NEGATIVE TESTS ============================ */
 
-  it('should return zero if negative int passed', () => {
+  it('should return zero when n = 0', () => {
+    const n = 0;
+    expect(factorial(n)).toEqual(0);
+  });
+
+  it('should return zero when n = -1', () => {
     const n = -1;
-    const result = factorial1(n);
-    expect(result).toEqual(0);
+    expect(factorial(n)).toEqual(0);
   });
 
 
   /* =========================== EXCEPTION TESTS =========================== */
 
-  it('should throw if no param passed', () => {
-    const n = null;
-    expect(() => factorial1(n)).toThrowError('Missing param');
+  it('should throw if no param is passed', () => {
+    expect(() => factorial()).toThrowError('Missing param');
+  });
+
+  it('should throw if non-numeric param is passed', () => {
+    expect(() => factorial('leroy')).toThrowError('Invalid param');
   });
 
 });

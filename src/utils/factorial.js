@@ -3,17 +3,21 @@
  * @param   {Number}   n   An integer (we hope)
  * @returns {Number}       The calculated factorial of `n`
  */
-const factorial1 = (n) => {
+const factorial = (n) => {
 
-  if (!n) {
+  if (n === null || n === undefined) {
     throw new Error('Missing param');
   }
 
-  if (n < 0) {
+  if (isNaN(n)) {
+    throw new Error('Invalid param');
+  }
+
+  if (n < 1) {
     return 0;
   }
 
-  return (n === 1) ? 1 : n * factorial1(n - 1);
+  return (n === 1) ? 1 : n * factorial(n - 1);
 };
 
-module.exports = { factorial1 };
+module.exports = { factorial };

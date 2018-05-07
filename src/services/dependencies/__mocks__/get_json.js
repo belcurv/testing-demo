@@ -23,7 +23,7 @@ const getJSON = (username) => {
 
   return new Promise((resolve, reject) => {
     if (!username) {
-      reject('Missing required param "username"');
+      reject({ error: 'Missing required param "username"' });
     }
     resolve(username === 'leroy' ? found : notFound);
   });
